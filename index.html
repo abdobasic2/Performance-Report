@@ -1,0 +1,414 @@
+<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>تقارير الأداء الشهرية لقسم التسويق</title>
+    
+    <!-- Tailwind CSS -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    
+    <!-- Chart.js for charts -->
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/chartjs-plugin-datalabels@2.0.0"></script>
+
+
+    <!-- Google Fonts: Cairo for Arabic text -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Cairo:wght@400;700;900&display=swap" rel="stylesheet">
+    
+    <style>
+        body {
+            font-family: 'Cairo', sans-serif;
+            background-color: #f8f9fa;
+        }
+        .main-header {
+            background-color: #c0392b;
+            color: white;
+        }
+        .section-title {
+            background-color: #e74c3c;
+            color: white;
+            padding: 0.75rem 1.5rem;
+            font-weight: bold;
+            font-size: 1.5rem;
+            border-radius: 0.5rem;
+            text-align: center;
+        }
+        .kpi-card {
+            background-color: #ecf0f1;
+            padding: 1rem;
+            border-radius: 0.5rem;
+            text-align: center;
+            border: 1px solid #bdc3c7;
+        }
+        .kpi-card h3 {
+            font-size: 1rem;
+            color: #34495e;
+            font-weight: 600;
+        }
+        .kpi-card p {
+            font-size: 1.75rem;
+            font-weight: 700;
+            color: #2c3e50;
+        }
+        .data-table {
+            width: 100%;
+            border-collapse: collapse;
+            background-color: white;
+            border-radius: 0.5rem;
+            overflow: hidden;
+            box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+        }
+        .data-table th, .data-table td {
+            padding: 1rem;
+            text-align: center;
+            border-bottom: 1px solid #ecf0f1;
+        }
+        .data-table th {
+            background-color: #e74c3c;
+            color: white;
+            font-weight: 600;
+        }
+        .data-table tr:last-child td {
+            border-bottom: none;
+        }
+        .data-table tr:nth-child(even) {
+            background-color: #f8f9fa;
+        }
+        .roas-highlight {
+            background-color: #f9e79f;
+            font-weight: bold;
+        }
+        #no-data-message {
+            display: none;
+            text-align: center;
+            padding: 4rem;
+            background-color: white;
+            border-radius: 1rem;
+            margin-top: 2rem;
+        }
+    </style>
+</head>
+<body class="p-4 md:p-6">
+
+    <div class="max-w-7xl mx-auto">
+        
+        <!-- Header -->
+        <header class="main-header p-4 rounded-t-lg flex flex-col md:flex-row justify-between items-center">
+            <h1 class="text-2xl md:text-3xl font-bold">تقارير الأداء الشهرية لقسم التسويق</h1>
+            <div class="flex items-center space-x-3 space-x-reverse mt-4 md:mt-0">
+                <select id="year-selector" class="bg-white text-gray-800 p-2 rounded-md border-2 border-transparent focus:border-red-400 focus:outline-none">
+                    <option value="2025">2025</option>
+                </select>
+                <label for="year-selector" class="font-semibold">السنة</label>
+                <select id="month-selector" class="bg-white text-gray-800 p-2 rounded-md border-2 border-transparent focus:border-red-400 focus:outline-none">
+                    <option value="all">طوال العام</option>
+                    <option value="May" selected>مايو</option>
+                    <option value="June">يونيو</option>
+                </select>
+                <label for="month-selector" class="font-semibold">الشهر</label>
+            </div>
+        </header>
+
+        <main id="report-container" class="p-4 md:p-6 bg-white rounded-b-lg shadow-lg">
+
+            <!-- Overall Stats -->
+            <section class="mb-8">
+                <h2 class="section-title mb-4">الأحصائيات العامة</h2>
+                <div id="kpi-grid" class="grid grid-cols-2 sm:grid-cols-3 lg:grid-cols-7 gap-4">
+                    <!-- KPI Cards will be injected here by JS -->
+                </div>
+            </section>
+            
+            <div class="grid grid-cols-1 lg:grid-cols-2 gap-8">
+                <!-- Google Ads -->
+                <section>
+                    <h2 class="section-title mb-4">تقرير الأداء لإعلانات جوجل</h2>
+                    <table class="data-table mb-6" id="google-table">
+                        <!-- Google data will be injected here -->
+                    </table>
+                    <div class="bg-gray-100 p-4 rounded-lg shadow-inner">
+                        <canvas id="googleChart"></canvas>
+                    </div>
+                </section>
+
+                <!-- TikTok Ads -->
+                <section>
+                    <h2 class="section-title mb-4">تقرير الأداء لإعلانات تيكتوك</h2>
+                    <table class="data-table mb-6" id="tiktok-table">
+                        <!-- TikTok data will be injected here -->
+                    </table>
+                    <div class="bg-gray-100 p-4 rounded-lg shadow-inner">
+                        <canvas id="tiktokChart"></canvas>
+                    </div>
+                </section>
+
+                <!-- Snapchat Ads -->
+                <section class="lg:col-span-2">
+                    <h2 class="section-title mb-4">تقرير الأداء لإعلانات سناب شات</h2>
+                    <div class="grid grid-cols-1 md:grid-cols-2 gap-8">
+                        <div>
+                            <table class="data-table" id="snapchat-table">
+                                <!-- Snapchat data will be injected here -->
+                            </table>
+                        </div>
+                        <div class="bg-gray-100 p-4 rounded-lg shadow-inner">
+                             <canvas id="snapchatChart"></canvas>
+                        </div>
+                    </div>
+                </section>
+            </div>
+        </main>
+        
+        <div id="no-data-message">
+            <h2 class="text-2xl font-bold text-gray-700">لا توجد بيانات متاحة لهذا الشهر</h2>
+            <p class="text-gray-500 mt-2">يرجى اختيار شهر آخر أو التأكد من توفر البيانات.</p>
+        </div>
+
+    </div>
+
+    <script>
+        // Data parsed from the provided CSV file.
+        const allData = {
+            "May_2025": {
+                stats: { "المتابعين الجدد": 198, "الظهور": 445288, "مشاهدات الفيديو": 565119, "تفاعلات": 1392, "المشاركات": 142, "النقرات": 32096, "التحويلات": 117000 },
+                google: { "التكلفة بالريال": 2142, "الظهور": 749179, "النقرات": 32096, "تكلفة النقرة": 0.07, "التحويلات": 29689, "تكلفة التحويل": 0.07 },
+                tiktok: { "التكلفة بالريال": 8601.59, "الظهور": 917111, "التحويلات": 357, "تكلفة التحويل": 24.09, "عدد التعاقدات": 1, "تكلفة التعاقد": 8601.59, "الإيرادات": 495, "مقياس الربح": 0.06 },
+                snapchat: { "التكلفة بالريال": 2462.61, "الظهور": 42830, "التحويلات": 90, "تكلفة التحويل": 27.36, "عدد التعاقدات": 2, "تكلفة التعاقد": 1231.31, "الإيرادات": 990, "مقياس الربح": 0.40 }
+            },
+            "June_2025": { // Placeholder data from image for demonstration
+                stats: { "المتابعين الجدد": 220, "الظهور": 1443600, "مشاهدات الفيديو": 827567, "تفاعلات": 179, "المشاركات": 1, "النقرات": 6097, "التحويلات": 2502 },
+                google: { "التكلفة بالريال": 2156.65, "الظهور": 455358, "النقرات": 4069, "تكلفة النقرة": 0.53, "التحويلات": 1768.50, "تكلفة التحويل": 1.22 },
+                tiktok: { "التكلفة بالريال": 7148.39, "الظهور": 715106, "التحويلات": 298, "تكلفة التحويل": 23.99, "عدد التعاقدات": 2, "تكلفة التعاقد": 3574.20, "الإيرادات": 1662, "مقياس الربح": 0.23 },
+                snapchat: { "التكلفة بالريال": 7718.29, "الظهور": 270215, "التحويلات": 436, "تكلفة التحويل": 17.70, "عدد التعاقدات": 3, "تكلفة التعاقد": 2572.76, "الإيرادات": 2970, "مقياس الربح": 0.38 }
+            }
+        };
+
+        const yearSelector = document.getElementById('year-selector');
+        const monthSelector = document.getElementById('month-selector');
+        const reportContainer = document.getElementById('report-container');
+        const noDataMessage = document.getElementById('no-data-message');
+        
+        let googleChart, tiktokChart, snapchatChart;
+
+        function formatNumber(num) {
+            if (num === null || num === undefined) return 'N/A';
+            return new Intl.NumberFormat('en-US').format(num);
+        }
+
+        function formatCurrency(num) {
+            if (num === null || num === undefined) return 'N/A';
+            return `SAR ${formatNumber(parseFloat(num).toFixed(2))}`;
+        }
+
+        function updateDashboard() {
+            const year = yearSelector.value;
+            const month = monthSelector.value;
+            const dataKey = `${month}_${year}`;
+
+            if (month === 'all') {
+                displayAggregatedData(year);
+                return;
+            }
+
+            const data = allData[dataKey];
+
+            if (!data) {
+                reportContainer.style.display = 'none';
+                noDataMessage.style.display = 'block';
+                return;
+            }
+
+            reportContainer.style.display = 'block';
+            noDataMessage.style.display = 'none';
+
+            // Update KPIs
+            const kpiGrid = document.getElementById('kpi-grid');
+            kpiGrid.innerHTML = '';
+            for (const [key, value] of Object.entries(data.stats)) {
+                const card = document.createElement('div');
+                card.className = 'kpi-card';
+                card.innerHTML = `<h3>${key}</h3><p>${formatNumber(value)}</p>`;
+                kpiGrid.appendChild(card);
+            }
+
+            // Update Tables
+            populateTable('google-table', data.google, ['التكلفة بالريال', 'الظهور', 'النقرات', 'تكلفة النقرة', 'التحويلات', 'تكلفة التحويل']);
+            populateTable('tiktok-table', data.tiktok, ['التكلفة بالريال', 'الظهور', 'التحويلات', 'تكلفة التحويل', 'عدد التعاقدات', 'تكلفة التعاقد', 'الإيرادات', 'مقياس الربح']);
+            populateTable('snapchat-table', data.snapchat, ['التكلفة بالريال', 'الظهور', 'التحويلات', 'تكلفة التحويل', 'عدد التعاقدات', 'تكلفة التعاقد', 'الإيرادات', 'مقياس الربح']);
+            
+            // Update Charts
+            updateCharts(data);
+        }
+        
+        function displayAggregatedData(year) {
+             const yearData = Object.entries(allData).filter(([key, _]) => key.endsWith(year));
+             if(yearData.length === 0) {
+                reportContainer.style.display = 'none';
+                noDataMessage.style.display = 'block';
+                return;
+             }
+             reportContainer.style.display = 'block';
+             noDataMessage.style.display = 'none';
+
+             const aggregated = {
+                stats: {}, google: {}, tiktok: {}, snapchat: {}
+             };
+
+            const keysToSum = {
+                stats: ["المتابعين الجدد", "الظهور", "مشاهدات الفيديو", "تفاعلات", "المشاركات", "النقرات", "التحويلات"],
+                google: ["التكلفة بالريال", "الظهور", "النقرات", "التحويلات"],
+                tiktok: ["التكلفة بالريال", "الظهور", "التحويلات", "عدد التعاقدات", "الإيرادات"],
+                snapchat: ["التكلفة بالريال", "الظهور", "التحويلات", "عدد التعاقدات", "الإيرادات"]
+            };
+
+            for (const section in keysToSum) {
+                for (const key of keysToSum[section]) {
+                    aggregated[section][key] = yearData.reduce((sum, [_, data]) => sum + (data[section][key] || 0), 0);
+                }
+            }
+            
+            // Recalculate averages/ratios
+            aggregated.google['تكلفة النقرة'] = aggregated.google['النقرات'] ? (aggregated.google['التكلفة بالريال'] / aggregated.google['النقرات']) : 0;
+            aggregated.google['تكلفة التحويل'] = aggregated.google['التحويلات'] ? (aggregated.google['التكلفة بالريال'] / aggregated.google['التحويلات']) : 0;
+            aggregated.tiktok['تكلفة التحويل'] = aggregated.tiktok['التحويلات'] ? (aggregated.tiktok['التكلفة بالريال'] / aggregated.tiktok['التحويلات']) : 0;
+            aggregated.tiktok['تكلفة التعاقد'] = aggregated.tiktok['عدد التعاقدات'] ? (aggregated.tiktok['التكلفة بالريال'] / aggregated.tiktok['عدد التعاقدات']) : 0;
+            aggregated.tiktok['مقياس الربح'] = aggregated.tiktok['التكلفة بالريال'] ? (aggregated.tiktok['الإيرادات'] / aggregated.tiktok['التكلفة بالريال']) : 0;
+            aggregated.snapchat['تكلفة التحويل'] = aggregated.snapchat['التحويلات'] ? (aggregated.snapchat['التكلفة بالريال'] / aggregated.snapchat['التحويلات']) : 0;
+            aggregated.snapchat['تكلفة التعاقد'] = aggregated.snapchat['عدد التعاقدات'] ? (aggregated.snapchat['التكلفة بالريال'] / aggregated.snapchat['عدد التعاقدات']) : 0;
+            aggregated.snapchat['مقياس الربح'] = aggregated.snapchat['التكلفة بالريال'] ? (aggregated.snapchat['الإيرادات'] / aggregated.snapchat['التكلفة بالريال']) : 0;
+
+            // Update UI with aggregated data
+            const kpiGrid = document.getElementById('kpi-grid');
+            kpiGrid.innerHTML = '';
+            for (const [key, value] of Object.entries(aggregated.stats)) {
+                const card = document.createElement('div');
+                card.className = 'kpi-card';
+                card.innerHTML = `<h3>${key}</h3><p>${formatNumber(value)}</p>`;
+                kpiGrid.appendChild(card);
+            }
+
+            populateTable('google-table', aggregated.google, ['التكلفة بالريال', 'الظهور', 'النقرات', 'تكلفة النقرة', 'التحويلات', 'تكلفة التحويل']);
+            populateTable('tiktok-table', aggregated.tiktok, ['التكلفة بالريال', 'الظهور', 'التحويلات', 'تكلفة التحويل', 'عدد التعاقدات', 'تكلفة التعاقد', 'الإيرادات', 'مقياس الربح']);
+            populateTable('snapchat-table', aggregated.snapchat, ['التكلفة بالريال', 'الظهور', 'التحويلات', 'تكلفة التحويل', 'عدد التعاقدات', 'تكلفة التعاقد', 'الإيرادات', 'مقياس الربح']);
+            
+            updateCharts(aggregated);
+        }
+
+
+        function populateTable(tableId, data, headers) {
+            const table = document.getElementById(tableId);
+            table.innerHTML = `
+                <thead>
+                    <tr>${headers.map(h => `<th>${h.replace('مقياس الربح', 'ROAS')}</th>`).join('')}</tr>
+                </thead>
+                <tbody>
+                    <tr>
+                        ${headers.map(h => {
+                            const value = data[h];
+                            let formattedValue;
+                            if (h.includes('التكلفة') || h.includes('الإيرادات')) {
+                                formattedValue = formatCurrency(value);
+                            } else if (h.includes('مقياس الربح')) {
+                                formattedValue = parseFloat(value).toFixed(2);
+                            } else {
+                                formattedValue = formatNumber(value);
+                            }
+                            const isRoas = h.includes('مقياس الربح');
+                            return `<td class="${isRoas ? 'roas-highlight' : ''}">${formattedValue}</td>`;
+                        }).join('')}
+                    </tr>
+                </tbody>`;
+        }
+        
+        function createOrUpdateChart(chartInstance, chartId, type, data, options) {
+            const ctx = document.getElementById(chartId).getContext('2d');
+            if (chartInstance) {
+                chartInstance.data = data;
+                chartInstance.options = options;
+                chartInstance.update();
+            } else {
+                return new Chart(ctx, { type, data, options });
+            }
+        }
+        
+        function updateCharts(data) {
+            Chart.defaults.font.family = 'Cairo';
+            const chartOptions = (title) => ({
+                responsive: true,
+                maintainAspectRatio: true,
+                plugins: {
+                    legend: { display: true, position: 'top' },
+                    title: { display: true, text: title, font: { size: 16 } },
+                    datalabels: {
+                        anchor: 'end',
+                        align: 'top',
+                        formatter: (value, context) => formatNumber(value),
+                        font: { weight: 'bold' }
+                    }
+                }
+            });
+
+            googleChart = createOrUpdateChart(googleChart, 'googleChart', 'bar', {
+                labels: ['الظهور', 'النقرات', 'التحويلات'],
+                datasets: [{
+                    label: 'أداء جوجل',
+                    data: [data.google.الظهور, data.google.النقرات, data.google.التحويلات],
+                    backgroundColor: '#3498db',
+                    borderRadius: 5
+                }]
+            }, chartOptions('مؤشرات جوجل الرئيسية'));
+            
+            tiktokChart = createOrUpdateChart(tiktokChart, 'tiktokChart', 'bar', {
+                labels: ['الظهور', 'التحويلات'],
+                datasets: [{
+                    label: 'أداء تيكتوك',
+                    data: [data.tiktok.الظهور, data.tiktok.التحويلات],
+                    backgroundColor: '#e74c3c',
+                    borderRadius: 5
+                }]
+            }, chartOptions('مؤشرات تيكتوك الرئيسية'));
+
+            snapchatChart = createOrUpdateChart(snapchatChart, 'snapchatChart', 'pie', {
+                labels: ['التكلفة', 'الإيرادات'],
+                datasets: [{
+                    label: 'التكلفة مقابل الإيرادات',
+                    data: [data.snapchat.التكلفة بالريال, data.snapchat.الإيرادات],
+                    backgroundColor: ['#f1c40f', '#2ecc71']
+                }]
+            }, {
+                 responsive: true,
+                maintainAspectRatio: true,
+                plugins: {
+                    legend: { display: true, position: 'top' },
+                    title: { display: true, text: 'سناب شات: التكلفة مقابل الإيرادات', font: { size: 16 } },
+                    datalabels: {
+                        formatter: (value, ctx) => {
+                            let sum = 0;
+                            let dataArr = ctx.chart.data.datasets[0].data;
+                            dataArr.map(data => { sum += data; });
+                            let percentage = (value*100 / sum).toFixed(2)+"%";
+                            return `${percentage}\n(${formatCurrency(value)})`;
+                        },
+                        color: '#fff',
+                        font: { weight: 'bold' }
+                    }
+                }
+            });
+        }
+
+
+        // Initial Load
+        yearSelector.addEventListener('change', updateDashboard);
+        monthSelector.addEventListener('change', updateDashboard);
+        
+        document.addEventListener('DOMContentLoaded', () => {
+             Chart.register(ChartDataLabels);
+             updateDashboard();
+        });
+
+    </script>
+</body>
+</html>
