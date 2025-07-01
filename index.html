@@ -125,8 +125,7 @@
             </section>
 
             <!-- Main Grid -->
-            <div class="grid grid-cols-1 lg:grid-cols-1 gap-8">
-                
+            <div class="grid grid-cols-1 lg:grid-cols-2 gap-8 mb-8">
                 <!-- Google Ads Section -->
                 <div class="card">
                     <div class="section-header"><h2>أداء منصة جوجل</h2></div>
@@ -134,20 +133,25 @@
                         <!-- Google Ads Table will be injected here -->
                     </div>
                 </div>
-
-                <!-- Snapchat & TikTok Section -->
+                <!-- Audience Section -->
                 <div class="card">
-                    <div class="section-header"><h2>أداء سناب شات وتيكتوك</h2></div>
-                    <div class="grid grid-cols-1 md:grid-cols-2 gap-8">
-                        <div>
-                            <h3 class="text-xl font-bold mb-4 text-center">مؤشرات الأداء</h3>
-                            <div class="chart-container"><canvas id="platformsChart"></canvas></div>
-                        </div>
-                        <div>
-                            <h3 class="text-xl font-bold mb-4 text-center">المؤشرات المالية</h3>
-                            <div id="platforms-table-container">
-                                <!-- Platforms financial table will be injected here -->
-                            </div>
+                    <div class="section-header"><h2>إحصاءات الجمهور</h2></div>
+                    <div class="chart-container"><canvas id="ageChart"></canvas></div>
+                </div>
+            </div>
+
+            <!-- Snapchat & TikTok Section -->
+            <div class="card">
+                <div class="section-header"><h2>أداء سناب شات وتيكتوك</h2></div>
+                <div class="grid grid-cols-1 md:grid-cols-2 gap-8">
+                    <div>
+                        <h3 class="text-xl font-bold mb-4 text-center">مؤشرات الأداء</h3>
+                        <div class="chart-container"><canvas id="platformsChart"></canvas></div>
+                    </div>
+                    <div>
+                        <h3 class="text-xl font-bold mb-4 text-center">المؤشرات المالية</h3>
+                        <div id="platforms-table-container">
+                            <!-- Platforms financial table will be injected here -->
                         </div>
                     </div>
                 </div>
@@ -200,14 +204,16 @@
             "May_2025": {
                 stats: { "المتابعون الجدد": 198, "الظهور": 445288, "مشاهدات الفيديو": 565119, "تفاعلات": 1392, "المشاركات": 142, "النقرات": 32096, "التحويلات": 117000 },
                 google: { "التكلفة بالريال": 2142, "الظهور": 749179, "النقرات": 32096, "تكلفة النقرة": 0.07, "التحويلات": 29689, "تكلفة التحويل": 0.07 },
-                tiktok: { "النقرات": 450, "الظهور": 917111, "التحويلات": 357, "التكلفة بالريال": 8601.59, "تكلفة التحويل": 24.09, "عدد التعاقدات": 1, "تكلفة التعاقد": 8601.59, "الإيرادات": 495 },
-                snapchat: { "النقرات": 150, "الظهور": 42830, "التحويلات": 90, "التكلفة بالريال": 2462.61, "تكلفة التحويل": 27.36, "عدد التعاقدات": 2, "تكلفة التعاقد": 1231.31, "الإيرادات": 990 }
+                tiktok: { "النقرات": 450, "الظهور": 917111, "التحويلات": 357, "التكلفة بالريال": 8601.59, "تكلفة التحويل": 24.09, "عدد التعاقدات": 1, "تكلفة التعاقد": 8601.59, "الإيرادات": 495, "ROAS": 0.06 },
+                snapchat: { "النقرات": 150, "الظهور": 42830, "التحويلات": 90, "التكلفة بالريال": 2462.61, "تكلفة التحويل": 27.36, "عدد التعاقدات": 2, "تكلفة التعاقد": 1231.31, "الإيرادات": 990, "ROAS": 0.40 },
+                age: { "18-24": 0.1, "25-34": 36, "35-44": 15.4, "45-54": 14, "55-64": 8.1, "65+": 26.4 }
             },
             "June_2025": {
                 stats: { "المتابعون الجدد": 220, "الظهور": 1443600, "مشاهدات الفيديو": 827567, "تفاعلات": 179, "المشاركات": 1, "النقرات": 6097, "التحويلات": 2502 },
                 google: { "التكلفة بالريال": 2156.65, "الظهور": 455358, "النقرات": 4069, "تكلفة النقرة": 0.53, "التحويلات": 1768, "تكلفة التحويل": 1.22 },
-                tiktok: { "النقرات": 350, "الظهور": 715106, "التحويلات": 298, "التكلفة بالريال": 7148.39, "تكلفة التحويل": 23.99, "عدد التعاقدات": 2, "تكلفة التعاقد": 3574.20, "الإيرادات": 1662 },
-                snapchat: { "النقرات": 500, "الظهور": 270215, "التحويلات": 436, "التكلفة بالريال": 7718.29, "تكلفة التحويل": 17.70, "عدد التعاقدات": 3, "تكلفة التعاقد": 2572.76, "الإيرادات": 2970 }
+                tiktok: { "النقرات": 350, "الظهور": 715106, "التحويلات": 298, "التكلفة بالريال": 7148.39, "تكلفة التحويل": 23.99, "عدد التعاقدات": 2, "تكلفة التعاقد": 3574.20, "الإيرادات": 1662, "ROAS": 0.23 },
+                snapchat: { "النقرات": 500, "الظهور": 270215, "التحويلات": 436, "التكلفة بالريال": 7718.29, "تكلفة التحويل": 17.70, "عدد التعاقدات": 3, "تكلفة التعاقد": 2572.76, "الإيرادات": 2970, "ROAS": 0.38 },
+                age: { "18-24": 0.5, "25-34": 38, "35-44": 16, "45-54": 12.5, "55-64": 7, "65+": 25.5 }
             }
         };
 
@@ -216,7 +222,7 @@
         const reportContainer = document.getElementById('report-container');
         const noDataMessage = document.getElementById('no-data-message');
         
-        let platformsChart;
+        let platformsChart, ageChart;
 
         function formatNumber(num, isCurrency = false, currency = 'SAR') {
             if (num === null || num === undefined) return 'N/A';
@@ -234,9 +240,7 @@
             const year = yearSelector.value;
             const month = monthSelector.value;
             
-            // For "All Year" aggregation
             if (month === 'all') {
-                // This part can be implemented if needed, for now we focus on monthly view
                 reportContainer.style.display = 'none';
                 noDataMessage.style.display = 'block';
                 noDataMessage.querySelector('h2').textContent = "عرض 'طوال العام' قيد التطوير";
@@ -272,10 +276,13 @@
 
             // 3. Update Platforms Chart
             updatePlatformsChart(data);
+
+            // 4. Update Age Chart
+            updateAgeChart(data);
             
-            // 4. Update Platforms Table
+            // 5. Update Platforms Table
             const platformsContainer = document.getElementById('platforms-table-container');
-            const platformHeaders = ["المنصة", "التكلفة بالريال", "تكلفة التحويل", "عدد التعاقدات", "تكلفة التعاقد", "الإيرادات"];
+            const platformHeaders = ["المنصة", "التكلفة بالريال", "تكلفة التحويل", "عدد التعاقدات", "تكلفة التعاقد", "الإيرادات", "ROAS"];
             const platformRows = [
                 { "المنصة": "تيكتوك", ...data.tiktok },
                 { "المنصة": "سناب شات", ...data.snapchat }
@@ -292,8 +299,16 @@
                 tableHTML += '<tr>';
                 headers.forEach(header => {
                     const value = row[header];
-                    let isCurrency = header.includes('التكلفة') || header.includes('الإيرادات') || header.includes('النقرة');
-                    tableHTML += `<td>${formatNumber(value, isCurrency)}</td>`;
+                    let formattedValue;
+                    if (header === 'المنصة') {
+                        formattedValue = value;
+                    } else if (header === 'ROAS') {
+                        formattedValue = parseFloat(value).toFixed(2);
+                    } else {
+                        let isCurrency = header.includes('التكلفة') || header.includes('الإيرادات') || header.includes('النقرة');
+                        formattedValue = formatNumber(value, isCurrency);
+                    }
+                    tableHTML += `<td>${formattedValue}</td>`;
                 });
                 tableHTML += '</tr>';
             });
@@ -341,12 +356,8 @@
                         callbacks: {
                             label: function(context) {
                                 let label = context.dataset.label || '';
-                                if (label) {
-                                    label += ': ';
-                                }
-                                if (context.parsed.y !== null) {
-                                    label += formatNumber(context.parsed.y);
-                                }
+                                if (label) { label += ': '; }
+                                if (context.parsed.y !== null) { label += formatNumber(context.parsed.y); }
                                 return label;
                             }
                         }
@@ -355,6 +366,33 @@
                 scales: { 
                     y: { type: 'logarithmic', ticks: { color: '#f8f9fa' } }, 
                     x: { ticks: { color: '#f8f9fa' } } 
+                }
+            });
+        }
+
+        function updateAgeChart(data) {
+            ageChart = createOrUpdateChart(ageChart, 'ageChart', 'pie', {
+                labels: Object.keys(data.age),
+                datasets: [{
+                    data: Object.values(data.age),
+                    backgroundColor: ['#e74c3c', '#c0392b', '#f1c40f', '#f39c12', '#3498db', '#2980b9'],
+                    borderColor: '#495057',
+                    borderWidth: 2
+                }]
+            }, {
+                responsive: true, maintainAspectRatio: false,
+                plugins: { 
+                    legend: { position: 'right', labels: { color: '#f8f9fa' } },
+                    tooltip: {
+                         callbacks: {
+                            label: function(context) {
+                                let label = context.label || '';
+                                if (label) { label += ': '; }
+                                if (context.parsed !== null) { label += context.parsed + '%';}
+                                return label;
+                            }
+                        }
+                    }
                 }
             });
         }
