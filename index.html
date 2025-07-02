@@ -56,15 +56,16 @@
             font-size: 1.75rem;
             font-weight: 700;
         }
-        .recommendation-card {
+        .analysis-card {
             background-color: rgba(255, 255, 255, 0.05);
             border-radius: 0.5rem;
-            padding: 1rem;
+            padding: 1.5rem;
             height: 100%;
         }
-        .recommendation-card h3 {
+        .analysis-card h3 {
             font-weight: bold;
-            margin-bottom: 0.5rem;
+            margin-bottom: 1rem;
+            font-size: 1.25rem;
         }
         .data-table {
             width: 100%;
@@ -141,7 +142,7 @@
             </div>
 
             <!-- Snapchat & TikTok Section -->
-            <div class="card">
+            <div class="card mb-8">
                 <div class="section-header"><h2>أداء سناب شات وتيكتوك</h2></div>
                 <div class="grid grid-cols-1 md:grid-cols-2 gap-8">
                     <div>
@@ -157,35 +158,30 @@
                 </div>
             </div>
             
-            <!-- Recommendations -->
+            <!-- Analysis and Solutions Section -->
             <section class="card mt-8">
                 <div class="section-header">
-                    <h2>التوصيات وخطة العمل</h2>
+                    <h2>تحليل الوضع والحلول المقترحة</h2>
                 </div>
-                <div class="grid grid-cols-1 md:grid-cols-3 gap-6">
-                    <div class="recommendation-card border-l-4 border-green-500">
-                        <h3 class="text-green-400 text-lg">تجارب نجحت بالفعل</h3>
-                        <ul class="list-disc list-inside text-gray-300 space-y-1">
-                           <li>انشاء فيديوهات بالذكاء الصناعي وتمويلها.</li>
-                           <li>فصل الفروع في الحملات الممولة على منصة جوجل.</li>
-                           <li>البدء في تنفيذ خطة تطوير الموقع لتحسين حركة التعاقدات.</li>
-                           <li>الرد على العملاء من خلال الذكاء الصناعي ليكون الرد لحظياً.</li>
+                <div class="grid grid-cols-1 md:grid-cols-2 gap-8">
+                    <!-- Current Situation Column -->
+                    <div class="analysis-card border-l-4 border-orange-500">
+                        <h3 class="text-orange-400">الوضع الحالي (قسم التسويق)</h3>
+                        <ul class="list-disc list-inside text-gray-300 space-y-2">
+                            <li>تم عمل إعلانات على منصات تيك توك وسناب شات بهدف تجميع بيانات العملاء المحتملين في جوجل شيت.</li>
+                            <li>تم تقسيم الحملات حسب فروع الشركة في المملكة، مما لم يتناسب مع طبيعة إعلانات جوجل.</li>
+                            <li>جاري انتظار تطوير صفحة هبوط جديدة من فريق البرمجة لتكون مناسبة لحملات جوجل وتحسين التحويلات.</li>
                         </ul>
                     </div>
-                    <div class="recommendation-card border-l-4 border-red-500">
-                        <h3 class="text-red-400 text-lg">تجارب لم تنجح</h3>
-                        <ul class="list-disc list-inside text-gray-300 space-y-1">
-                            <li>فصل الفروع في الحملات الممولة على منصتي التيكتوك والأسناب.</li>
-                            <li>الرد اللحظي على العملاء من خلال خدمة العملاء.</li>
-                        </ul>
-                    </div>
-                    <div class="recommendation-card border-l-4 border-blue-500">
-                        <h3 class="text-blue-400 text-lg">حلول مقترحة</h3>
-                        <ul class="list-disc list-inside text-gray-300 space-y-1">
-                            <li>إنشاء عروض حصرية للحملات الممولة.</li>
-                            <li>تجربة التمويل على منصات ميتا (فيسبوك/انستغرام).</li>
-                            <li>إنشاء حملات لزيادة المتابعين لزيادة المصداقية.</li>
-                            <li>انشاء شيت لمتابعة العملاء ورصد المشاكل وحلها.</li>
+                    <!-- Proposed Solutions Column -->
+                    <div class="analysis-card border-l-4 border-green-500">
+                        <h3 class="text-green-400">الحلول المقترحة (قسم التسويق)</h3>
+                        <ul class="list-disc list-inside text-gray-300 space-y-2">
+                            <li>البدء في عمل إعلانات على منصة انستجرام للوصول إلى جمهور أكبر.</li>
+                            <li>عمل حملات إعلانية موجهة للمملكة كلها بدون تخصيص فروع لتقليل تكلفة اكتساب العميل.</li>
+                            <li>تصوير احترافي للمنتجات والخدمات لعرضها في الإعلانات وتحفيز قرار الشراء.</li>
+                            <li>عمل حملات لزيادة المتابعين على المنصات للحصول على المصداقية وزيادة العملاء بشكل طبيعي.</li>
+                            <li>تحسين الاستهداف والنماذج في الإعلانات للوصول لعملاء بجودة أفضل.</li>
                         </ul>
                     </div>
                 </div>
